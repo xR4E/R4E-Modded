@@ -13,10 +13,10 @@
         <div class="block">
             <div class="button-holder">
                 <div class="button-left">
-                    <a href="{{ route('rss.create') }}" class="btn btn-sm btn-primary">@lang('rss.create-private-feed')</a>
+
                 </div>
                 <div class="button-right">
-    
+
                 </div>
             </div>
             <div class="header gradient orange">
@@ -26,10 +26,6 @@
             </div>
             <div class="container-fluid p-0 some-padding">
                 <div class="block">
-                    <ul class="nav nav-tabs" id="basetabs" role="tablist">
-                        <li id="public-tab" class="active"><a href="#public" data-toggle="tab">@lang('rss.public')</a></li>
-                        <li id="private-tab"><a href="#private" data-toggle="tab">@lang('rss.private')</a></li>
-                    </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="public">
                             <div class="table-responsive">
@@ -178,7 +174,7 @@
         $(window).on("load", function() {
             loadTab();
         });
-    
+
         function loadTab() {
             if (window.location.hash && window.location.hash == "#private") {
                 $('#basetabs a[href="#private"]').tab('show');
@@ -187,6 +183,6 @@
                 $('#basetabs a[href="#public"]').tab('show');
             }
         }
-    
+
     </script>
 @endsection

@@ -52,13 +52,6 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('albums.index') }}">
-                <i class="{{ config('other.font-awesome') }} fa-images" style=" font-size: 18px; color: #ffffff;"></i>
-                <span class="menu-text">Gallery</span>
-                <span class="selected"></span>
-            </a>
-        </li>
-        <li>
             <a href="{{ route('stats') }}">
                 <i class="{{ config('other.font-awesome') }} fa-chart-bar"
                     style=" font-size: 18px; color: #ffffff;"></i>

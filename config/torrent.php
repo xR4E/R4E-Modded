@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'source' => 'UNIT3D',
+    'source' => 'R4E',
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'created_by'        => 'Edited by UNIT3D',
+    'created_by'        => 'Edited by R4E',
     'created_by_append' => true,
 
     /*
@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'comment' => 'This torrent was downloaded from UNIT3D',
+    'comment' => 'This torrent was downloaded from R4E',
 
     /*
     |--------------------------------------------------------------------------

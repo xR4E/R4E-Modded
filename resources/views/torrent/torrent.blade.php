@@ -819,12 +819,4 @@
                 background: 'rgb(35,35,35)',
                 width: 970,
                 html: '<iframe width="930" height="523" src="{{ $meta->videos[0] }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-                title: '<i style="color: #a5a5a5;">{{ $meta->name }}</i>',
-                text: ''
-              });
-            });
-          });
-        </script>
-    @endif
-
-@endsection
+                title: '<i style="color: #a5a5a5;">{{ $meta->name 

@@ -54,10 +54,6 @@
                 <h2 class="inactive underlineHover">@lang('auth.signup') </h2>
             </a>
 
-            <div class="fadeIn first">
-                <img src="{{ url('/img/icon.svg') }}" id="icon" alt="@lang('auth.user-icon')" />
-            </div>
-
             <form role="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div>
@@ -115,12 +111,12 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-        
+
                 Toast.fire({
                     icon: '{{ $key }}',
                     title: '{{ Session::get($key) }}'
                 })
-        
+
             </script>
         @endif
     @endforeach

@@ -52,27 +52,6 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
-
-        $old_torrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
-            ->whereRaw('torrents.created_at > date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
-
         $huge_torrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.info_hash)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
@@ -109,33 +88,13 @@ class AutoBonAllocation extends Command
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $teamplayer_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $commited_seeder = DB::table('history')
-            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
-            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
-            ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2592000 * 3)
             ->where('history.seedtime', '<', 2592000 * 6)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
 
-        $mvp_seeder = DB::table('history')
+        $teamplayer_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
@@ -145,11 +104,31 @@ class AutoBonAllocation extends Command
             ->get()
             ->toArray();
 
-        $legendary_seeder = DB::table('history')
+        $commited_seeder = DB::table('history')
             ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
             ->join('torrents', 'torrents.info_hash', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '<', 2592000 * 18)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
+
+        $mvp_seeder = DB::table('history')
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', 1)
+            ->where('history.seedtime', '>=', 2592000 * 18)
+            ->where('history.seedtime', '<', 2592000 * 24)
+            ->groupBy('history.user_id')
+            ->get()
+            ->toArray();
+
+        $legendary_seeder = DB::table('history')
+            ->select(DB::raw('count(DISTINCT(history.info_hash)) as value'), 'history.user_id')
+            ->join('torrents', 'torrents.info_hash', 'history.info_hash')
+            ->where('history.active', 1)
+            ->where('history.seedtime', '>=', 2592000 * 24)
             ->groupBy('history.user_id')
             ->get()
             ->toArray();
@@ -166,27 +145,11 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($legendary_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1.5;
-            } else {
-                $array[$value->user_id] = $value->value * 1.5;
-            }
-        }
-
-        foreach ($old_torrent as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1;
-            } else {
-                $array[$value->user_id] = $value->value * 1;
-            }
-        }
-
         foreach ($huge_torrent as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.75;
+                $array[$value->user_id] += $value->value *2;
             } else {
-                $array[$value->user_id] = $value->value * 0.75;
+                $array[$value->user_id] = $value->value *2;
             }
         }
 
@@ -208,21 +171,13 @@ class AutoBonAllocation extends Command
 
         foreach ($participaint_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.25;
-            } else {
-                $array[$value->user_id] = $value->value * 0.25;
-            }
-        }
-
-        foreach ($teamplayer_seeder as $key => $value) {
-            if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.50;
             } else {
                 $array[$value->user_id] = $value->value * 0.50;
             }
         }
 
-        foreach ($commited_seeder as $key => $value) {
+        foreach ($teamplayer_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 0.75;
             } else {
@@ -230,7 +185,7 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($mvp_seeder as $key => $value) {
+        foreach ($commited_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 1;
             } else {
@@ -238,11 +193,19 @@ class AutoBonAllocation extends Command
             }
         }
 
-        foreach ($legendary_seeder as $key => $value) {
+        foreach ($mvp_seeder as $key => $value) {
             if (array_key_exists($value->user_id, $array)) {
                 $array[$value->user_id] += $value->value * 2;
             } else {
                 $array[$value->user_id] = $value->value * 2;
+            }
+        }
+
+        foreach ($legendary_seeder as $key => $value) {
+            if (array_key_exists($value->user_id, $array)) {
+                $array[$value->user_id] += $value->value * 4;
+            } else {
+                $array[$value->user_id] = $value->value * 4;
             }
         }
 

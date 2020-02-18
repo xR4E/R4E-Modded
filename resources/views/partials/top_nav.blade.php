@@ -2,7 +2,7 @@
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home.index') }}">
             <div class="banner">
-                <i class="fal fa-rocket" style="display: inline;"></i>
+                <i class="fas fa-flag-checkered" style="display: inline;"></i>
             </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
@@ -33,6 +33,12 @@
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('achievements.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
+                </a>
+            </li>
+
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
+                <a href="{{ route('pages.show', ['id' => 7]) }}" class="dropdown-toggle icon-circle">
+                    <i class="fal fa-heart test-red" style=" color: rgba(255, 0, 0, 0.8) !important;"></i>
                 </a>
             </li>
 

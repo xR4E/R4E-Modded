@@ -3,12 +3,6 @@
         <a href="{{ route('categories.index') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('torrent.categories')
         </a>
-        <a href="{{ route('cards') }}" class="btn btn-sm btn-primary">
-            <i class="{{ config('other.font-awesome') }} fa-image"></i> @lang('torrent.cards')
-        </a>
-        <a href="{{ route('groupings') }}" class="btn btn-sm btn-primary">
-            <i class="{{ config('other.font-awesome') }} fa-clone"></i> @lang('torrent.groupings')
-        </a>
         <a href="{{ route('torrents') }}" class="btn btn-sm btn-primary">
             <i class="{{ config('other.font-awesome') }} fa-list"></i> @lang('torrent.list')
         </a>

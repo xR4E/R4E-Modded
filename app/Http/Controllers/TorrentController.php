@@ -384,8 +384,6 @@ class TorrentController extends Controller
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
         $start_year = $request->input('start_year');
         $end_year = $request->input('end_year');
         $categories = $request->input('categories');
@@ -477,14 +475,6 @@ class TorrentController extends Controller
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
                 $torrent->where('torrentsl.tmdb', '=', $tmdb);
-            }
-
-            if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrentsl.mal', '=', $mal);
-            }
-
-            if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrentsl.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -610,14 +600,6 @@ class TorrentController extends Controller
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
                 $torrent->where('torrents.tmdb', '=', $tmdb);
-            }
-
-            if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrents.mal', '=', $mal);
-            }
-
-            if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrents.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -1027,8 +1009,6 @@ class TorrentController extends Controller
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
-        $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
@@ -1044,8 +1024,6 @@ class TorrentController extends Controller
             'imdb'         => 'required|numeric',
             'tvdb'         => 'required|numeric',
             'tmdb'         => 'required|numeric',
-            'mal'          => 'required|numeric',
-            'igdb'         => 'required|numeric',
             'type'         => 'required',
             'anon'         => 'required',
             'stream'       => 'required',
@@ -1288,8 +1266,6 @@ class TorrentController extends Controller
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
-        $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1313,8 +1289,6 @@ class TorrentController extends Controller
             'imdb'        => 'required|numeric',
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',

@@ -36,7 +36,6 @@
                             </a>
                             <p class="lead text-blue">{{ $group
                                         ->users()
-                                        ->withTrashed()
                                         ->count() }} Users</p>
                         </div>
                     </div>

@@ -294,11 +294,11 @@ class NerdBot
     {
         $registrations = cache()->get('nerdbot-users');
         if (!$registrations || $registrations == null) {
-            $users = User::where('created_at', '>', $this->current->subDay())->count();
-            cache()->put('nerdbot-users', $users, $this->expiresAt);
+            $registrations = User::where('created_at', '>', $this->current->subDay())->count();
+            cache()->put('nerdbot-users', $registrations, $this->expiresAt);
         }
 
-        return "In The Last 24 Hours {$users} Users Have Registered To ".config('other.title').'!';
+        return "In The Last 24 Hours {$registrations} Users Have Registered To ".config('other.title').'!';
     }
 
     /**

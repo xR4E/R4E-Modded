@@ -76,7 +76,7 @@ return [
     | Date Site Was Born
     |
     */
-    'birthdate' => 'December 30th 2017',
+    'birthdate' => '2018-02-08',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     */
     'freeleech' => false,
 
-    'freeleech_until' => '12/23/2017 3:00 PM EST',
+    'freeleech_until' => '2020-01-01T12:00+00:00',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
+    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/3',
 
     /*
     |--------------------------------------------------------------------------
@@ -199,5 +199,5 @@ return [
     |--------------------------------------------------------------------------
     | Example: 4
     */
-    'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/4',
+    'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/5',
 ];

@@ -164,10 +164,9 @@ class RegisterController extends Controller
         // Select A Random Welcome Message
         $profile_url = hrefProfile($user);
         $welcomeArray = [
-            "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :rocket:',
-            "[url={$profile_url}]{$user->username}[/url], We've been expecting you :space_invader:",
-            "[url={$profile_url}]{$user->username}[/url] has arrived. Party's over. :cry:",
-            "It's a bird! It's a plane! Nevermind, it's just [url={$profile_url}]{$user->username}[/url].",
+            "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :checkered_flag:',
+            "[url={$profile_url}]{$user->username}[/url], We've been expecting you :checkered_flag:",
+            "[url={$profile_url}]{$user->username}[/url] has arrived. The world is safe once more, [b][i]but for how long??[/i][/b]",
             "Ready player [url={$profile_url}]{$user->username}[/url].",
             "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
             'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",

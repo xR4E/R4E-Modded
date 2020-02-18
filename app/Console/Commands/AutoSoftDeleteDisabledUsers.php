@@ -68,7 +68,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->group = $pruned_group[0];
                 $user->deleted_by = 1;
                 $user->save();
-                $user->delete();
+                //$user->delete();
             }
         }
     }

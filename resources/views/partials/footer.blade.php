@@ -49,7 +49,6 @@
             <h2 class="l-footer-section-title">@lang('common.info')</h2>
             <ul>
                 <li><a href="{{ route('staff') }}">@lang('common.staff')</a></li>
-                <li><a href="{{ route('internal') }}">@lang('common.internal')</a></li>
                 <li><a href="{{ route('blacklist') }}">@lang('common.blacklist')</a></li>
                 @if (config('email-white-blacklist.enabled') == 'allow')
                     <li><a href="{{ route('emaillist') }}">@lang('common.email-whitelist')</a></li>
@@ -57,16 +56,13 @@
                 @if (config('email-white-blacklist.enabled') == 'block')
                     <li><a href="{{ route('emaillist') }}">@lang('common.email-blacklist')</a></li>
                 @endif
-                <li><a href="{{ route('about') }}">@lang('common.about')</a></li>
             </ul>
         </div>
 
         <div class="col-md-2 l-footer-section">
             <h2 class="l-footer-section-title">@lang('common.other')</h2>
             <ul>
-                <li><a href="https://github.com/sponsors/HDVinnie" target="_blank"
-                        class="btn btn-xs btn-primary">@lang('common.sponsor')</a></li>
-                <li><a href="https://github.com/HDInnovations/UNIT3D" target="_blank"
+                <li><a href="https://github.com/xR4E/R4E-Modded" target="_blank"
                         class="btn btn-xs btn-primary">@lang('common.powered-by')</a></li>
             </ul>
         </div>
