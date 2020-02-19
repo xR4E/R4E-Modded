@@ -164,16 +164,16 @@ class RegisterController extends Controller
         // Select A Random Welcome Message
         $profile_url = hrefProfile($user);
         $welcomeArray = [
-            "[url={$profile_url}]{$user->username}[/url], Welcome to ".config('other.title').'! Hope you enjoy the community :checkered_flag:',
-            "[url={$profile_url}]{$user->username}[/url], We've been expecting you :checkered_flag:",
-            "[url={$profile_url}]{$user->username}[/url] has arrived. The world is safe once more, [b][i]but for how long??[/i][/b]",
-            "Ready player [url={$profile_url}]{$user->username}[/url].",
-            "A wild [url={$profile_url}]{$user->username}[/url] appeared.",
-            'Welcome to '.config('other.title')." [url={$profile_url}]{$user->username}[/url]. We were expecting you ( ͡° ͜ʖ ͡°)",
+            sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :checkered_flag:',
+            sprintf('[url=%s]%s[/url], We\'ve been expecting you :checkered_flag:', $profile_url, $user->username),
+            sprintf('[url=%s]%s[/url] has arrived. The world is safe once more, [b][i]but for how long??[/i][/b]', $profile_url, $user->username),
+            sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
+            sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
+            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),
         ];
         $selected = mt_rand(0, count($welcomeArray) - 1);
         $this->chat->systemMessage(
-            "{$welcomeArray[$selected]}"
+            sprintf('%s', $welcomeArray[$selected])
         );
         // Send Welcome PM
         $pm = new PrivateMessage();
