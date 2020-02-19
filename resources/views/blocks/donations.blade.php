@@ -2,7 +2,7 @@
     <div class="clearfix visible-sm-block"></div>
         <div class="panel panel-chat shoutbox">
             <div class="panel-heading">
-                <h4>{{ config("r4e.donation-title", 'Donations') }}</h4>
+                <h4>@lang('blocks.donation-title')</h4>
             </div>
             <div class="panel-body">
                 <h3 style="margin-top: 10px;">Goal: {{ config("r4e.donation-goal", '0') }} {{ config("r4e.donation-unit", 'Unit') }}</h3>

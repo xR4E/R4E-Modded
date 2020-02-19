@@ -39,7 +39,14 @@ return [
     // News/Articles
     'check-news' => 'News (check daily)',
     'new-news'   => 'New News',
+    'latest-news'   => 'Latest News',
 
     // Top Torrents
     'new-torrents' => 'New Torrents',
+
+    // Calendar
+    'calendar' => 'Racing Calendar',
+
+    // Donations
+    'donation-title' => 'Donations Status',
 ];

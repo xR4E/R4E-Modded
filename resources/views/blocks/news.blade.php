@@ -16,7 +16,8 @@
                             <h4 class="text-center">
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion"
                                     href="#collapse4" style="color:#ffffff;">
-                                    @lang('blocks.check-news')
+                                    @lang('blocks.latest-news')
+                                    <td>{{ $article->created_at->diffForHumans() }}</td>
                                 </a>
                             </h4>
                         </div>
