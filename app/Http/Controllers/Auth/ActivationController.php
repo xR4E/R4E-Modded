@@ -28,7 +28,7 @@ class ActivationController extends Controller
             return Group::where('slug', '=', 'pruned')->pluck('id');
         });
         $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
+            return Group::where('slug', '=', 'rookie')->pluck('id');
         });
 
         $activation = UserActivation::with('user')->where('token', '=', $token)->firstOrFail();

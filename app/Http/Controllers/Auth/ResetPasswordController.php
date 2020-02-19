@@ -36,7 +36,7 @@ class ResetPasswordController extends Controller
             return Group::where('slug', '=', 'validating')->pluck('id');
         });
         $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
+            return Group::where('slug', '=', 'rookie')->pluck('id');
         });
         $user->password = bcrypt($password);
         $user->remember_token = Str::random(60);
