@@ -409,16 +409,17 @@
                                     <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
                                         alt="{{ $torrent->category->name }}">
-                                </div>
-                            </a>
+                                        {{ $torrent->category->name }}
+                                </a>
+                            </div>
                         @else
                                 <div class="text-left">
                                     <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
                                     <i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip"
                                         data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
                                         {{ $torrent->category->name }}
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         @endif
                         </td>
                     </tr>
