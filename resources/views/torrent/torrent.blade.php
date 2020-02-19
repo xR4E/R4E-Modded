@@ -485,7 +485,7 @@
                                 <div class="panel-body">
                                     <div class="text-center">
                                         <span class="text-bold text-blue">
-                                            @emojione(':blue_heart:') @lang('torrent.media-info') @emojione(':blue_heart:')
+                                            @emojione(':checkered_flag:') @lang('torrent.media-info') @emojione(':checkered_flag:')
                                         </span>
                                     </div>
                                     <br>
@@ -571,7 +571,7 @@
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
+                                            <span class="btn-label">@emojione(':information_source:')</span>{{ strtoupper(trans('torrent.original-output')) }}
                                         </button>
                                     </div>
                                     <div class="slidingDiv">

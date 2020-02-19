@@ -67,7 +67,7 @@
                                 {{ config('app.url') }} -- <span class="text-muted">Connection Not Secure</span>
                             </h3>
                             <div style="padding-top: 15px;">
-                                <span class="text-red text-left">Issued By: N/A}</span>
+                                <span class="text-red text-left">Issued By: N/A</span>
                                 <span class="text-red" style="float: right;">Expires: N/A</span>
                             </div>
                         @endif
