@@ -14,6 +14,7 @@
 return [
     'audit-log'            => 'Audit Log',
     'articles'                => 'Articles',
+    'application'            => 'Application',
     'applications'            => 'Applications',
     'application-type'        => 'Type',
     'application-image-proofs'=> 'Image Proofs',

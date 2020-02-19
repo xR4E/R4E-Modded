@@ -115,7 +115,7 @@ class HomeController extends Controller
                     $query->whereNotNull('torrent')->where('active', '1');
                 },
             ])
-            ->where('last_action', '>', now()->subMinutes(15))
+            ->where('last_action', '>', now()->subMinutes(30))
             ->get();
 
         $groups = cache()->remember('user-groups', $expiresAt, function () {

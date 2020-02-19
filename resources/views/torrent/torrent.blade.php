@@ -402,10 +402,24 @@
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
-                        <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
-                               data-toggle="tooltip"
-
-                               data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i> {{ $torrent->category->name }}
+                        <td>
+                        @if ($torrent->category->image != null)
+                                <div class="text-left">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                        alt="{{ $torrent->category->name }}">
+                                </div>
+                            </a>
+                        @else
+                                <div class="text-left">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip"
+                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                        {{ $torrent->category->name }}
+                                </div>
+                            </a>
+                        @endif
                         </td>
                     </tr>
 
