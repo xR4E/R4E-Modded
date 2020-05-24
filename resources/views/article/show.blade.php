@@ -135,8 +135,6 @@
       $(document).ready(function () {
 
         $('#content').wysibb({});
-
-        emoji.textcomplete()
       })
     </script>
 @endsection

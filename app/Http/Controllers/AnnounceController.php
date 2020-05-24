@@ -34,8 +34,8 @@ class AnnounceController extends Controller
     protected const POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 2400;
-    private const MAX = 3600;
+    private const MIN = 2_400;
+    private const MAX = 3_600;
 
     /**
      * Announce Code.
@@ -58,7 +58,7 @@ class AnnounceController extends Controller
 
         // Check Announce Request Method
         $method = $request->method();
-        if (!$request->isMethod('get')) {
+        if (! $request->isMethod('get')) {
             info('Announce Request Method Was Not GET');
 
             return response(Bencode::bencode(['failure reason' => 'Invalid Request Type: Client Request Was Not A HTTP GET.']))->withHeaders(['Content-Type' => 'text/plain']);
@@ -91,37 +91,37 @@ class AnnounceController extends Controller
         }
 
         // If Infohash Is Not Provided Return Error to Client
-        if (!$request->has('info_hash')) {
+        if (! $request->has('info_hash')) {
             //info('Client Attempted To Connect To Announce Without A Infohash');
             return response(Bencode::bencode(['failure reason' => 'Missing info_hash']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Peerid Is Not Provided Return Error to Client
-        if (!$request->has('peer_id')) {
+        if (! $request->has('peer_id')) {
             //info('Client Attempted To Connect To Announce Without A Peerid');
             return response(Bencode::bencode(['failure reason' => 'Missing peer_id']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If Port Is Not Provided Return Error to Client
-        if (!$request->has('port')) {
+        if (! $request->has('port')) {
             //info('Client Attempted To Connect To Announce Without A Specified Port');
             return response(Bencode::bencode(['failure reason' => 'Missing port']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Left" Is Not Provided Return Error to Client
-        if (!$request->has('left')) {
+        if (! $request->has('left')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Left" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing left']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Upload" Is Not Provided Return Error to Client
-        if (!$request->has('uploaded')) {
+        if (! $request->has('uploaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Upload" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing upload']))->withHeaders(['Content-Type' => 'text/plain']);
         }
 
         // If "Download" Is Not Provided Return Error to Client
-        if (!$request->has('downloaded')) {
+        if (! $request->has('downloaded')) {
             //info('Client Attempted To Connect To Announce Without Supplying Any "Download" Information');
             return response(Bencode::bencode(['failure reason' => 'Missing download']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -136,18 +136,10 @@ class AnnounceController extends Controller
         }
 
         // Caached System Required Groups
-        $banned_group = cache()->rememberForever('banned_group', function () {
-            return Group::where('slug', '=', 'banned')->pluck('id');
-        });
-        $validating_group = cache()->rememberForever('validating_group', function () {
-            return Group::where('slug', '=', 'validating')->pluck('id');
-        });
-        $disabled_group = cache()->rememberForever('disabled_group', function () {
-            return Group::where('slug', '=', 'disabled')->pluck('id');
-        });
-        $pruned_group = cache()->rememberForever('pruned_group', function () {
-            return Group::where('slug', '=', 'pruned')->pluck('id');
-        });
+        $banned_group = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
+        $validating_group = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
+        $disabled_group = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        $pruned_group = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         // If User Is Banned Return Error to Client
         if ($user->group_id == $banned_group[0]) {
@@ -160,7 +152,7 @@ class AnnounceController extends Controller
             //info('A Disabled User (' . $user->username . ') Attempted To Announce');
             return response(Bencode::bencode(['failure reason' => 'Your account is disabled. Please login.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
-        // If User Is Pruned rReturn Error to Client
+        // If User Is Pruned Return Error to Client
         if ($user->group_id == $pruned_group[0]) {
             return response(Bencode::bencode(['failure reason' => 'Your account has been pruned.']))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -184,10 +176,10 @@ class AnnounceController extends Controller
         $md5_peer_id = md5($peer_id);
         $ip = $request->ip();
         $port = (int) $request->input('port');
-        $left = (float) $request->input('left');
-        $uploaded = (float) $request->input('uploaded');
+        $left = (int) $request->input('left');
+        $uploaded = (int) $request->input('uploaded');
         $real_uploaded = $uploaded;
-        $downloaded = (float) $request->input('downloaded');
+        $downloaded = (int) $request->input('downloaded');
         $real_downloaded = $downloaded;
 
         //Extra Information Fields
@@ -211,7 +203,7 @@ class AnnounceController extends Controller
         }
 
         // If User Client Does Not Support Compact Return Error to Client
-        if (!$compact) {
+        if (! $compact) {
             //info('Client Attempted To Connect To Announce But Doesn't Support Compact');
             return response(Bencode::bencode(['failure reason' => "Your client doesn't support compact, please update your client"]))->withHeaders(['Content-Type' => 'text/plain']);
         }
@@ -244,7 +236,7 @@ class AnnounceController extends Controller
         }
 
         // Get Torrents Peers
-        $peers = Peer::where('torrent_id', '=', $torrent->id)->take(50)->get()->toArray();
+        $peers = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '!=', $user->id)->take(50)->get()->toArray();
 
         // Pull Count On Users Peers Per Torrent For Rate Limiting
         $connections = Peer::where('torrent_id', '=', $torrent->id)->where('user_id', '=', $user->id)->count();
@@ -304,7 +296,11 @@ class AnnounceController extends Controller
             $mod_downloaded = $downloaded;
         }
 
-        $mod_uploaded = config('other.doubleup') == 1 || $torrent->doubleup == 1 ? $uploaded * 2 : $uploaded;
+        if (config('other.doubleup') == 1 || $torrent->doubleup == 1 || $group->is_double_upload == 1) {
+            $mod_uploaded = $uploaded * 2;
+        } else {
+            $mod_uploaded = $uploaded;
+        }
 
         if ($event == 'started') {
             // Peer Update
@@ -520,8 +516,6 @@ class AnnounceController extends Controller
                 unset($p['peer_id']);
             }
 
-            return $peers;
-        } else {
             return $peers;
         }
 

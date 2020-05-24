@@ -80,19 +80,14 @@ class ApplicationController extends Controller
             $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
             $invite->custom = $request->input('approve');
 
-            if (config('email-white-blacklist.enabled') === 'allow') {
+            if (config('email-blacklist.enabled') == true) {
                 $v = validator($request->all(), [
-                    'email'   => 'required|email|unique:invites|unique:users|email_list:allow', // Whitelist
-                    'approve' => 'required',
-                ]);
-            } elseif (config('email-white-blacklist.enabled') === 'block') {
-                $v = validator($request->all(), [
-                    'email'   => 'required|email|unique:invites|unique:users|email_list:block', // Blacklist
+                    'email'   => 'required|string|email|max:70|blacklist|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             } else {
                 $v = validator($request->all(), [
-                    'email'   => 'required|email|unique:invites|unique:users', // Default
+                    'email'   => 'required|string|email|max:70|unique:users|unique:invites',
                     'approve' => 'required',
                 ]);
             }
@@ -107,10 +102,10 @@ class ApplicationController extends Controller
 
             return redirect()->route('staff.applications.index')
                 ->withSuccess('Application Approved');
-        } else {
-            return redirect()->route('staff.applications.index')
-                ->withErrors('Application Already Approved');
         }
+
+        return redirect()->route('staff.applications.index')
+                ->withErrors('Application Already Approved');
     }
 
     /**

@@ -61,7 +61,7 @@ class InviteController extends Controller
             return redirect()->route('home.index')
             ->withErrors('Your Invite Rights Have Been Revoked!');
         }
-        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
@@ -83,7 +83,7 @@ class InviteController extends Controller
         $current = new Carbon();
         $user = $request->user();
 
-        if (config('other.invites_restriced') == true && !in_array($user->group->name, config('other.invite_groups'))) {
+        if (config('other.invites_restriced') == true && ! in_array($user->group->name, config('other.invite_groups'))) {
             return redirect()->route('home.index')
                 ->withErrors('Invites are currently disabled for your group.');
         }
@@ -108,19 +108,14 @@ class InviteController extends Controller
         $invite->expires_on = $current->copy()->addDays(config('other.invite_expire'));
         $invite->custom = $request->input('message');
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-blacklist.enabled')) {
             $v = validator($invite->toArray(), [
-                'email'  => 'required|email|unique:users|email_list:allow', // Whitelist
-                'custom' => 'required',
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($invite->toArray(), [
-                'email'  => 'required|email|unique:users|email_list:block', // Blacklist
+                'email'  => 'required|string|email|max:70|blacklist|unique:users',
                 'custom' => 'required',
             ]);
         } else {
             $v = validator($invite->toArray(), [
-                'email'  => 'required|email|unique:users', // Default
+                'email'  => 'required|string|email|max:70|unique:users',
                 'custom' => 'required',
             ]);
         }
@@ -131,7 +126,7 @@ class InviteController extends Controller
         }
         Mail::to($request->input('email'))->send(new InviteUser($invite));
         $invite->save();
-        $user->invites -= 1;
+        $user->invites--;
         $user->save();
 
         return redirect()->route('invites.create')

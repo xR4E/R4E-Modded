@@ -198,7 +198,7 @@ class UserController extends Controller
                     $user->image = $user->username.'.'.$image->getClientOriginalExtension();
                 } else {
                     return redirect()->route('users.show', ['username' => $user->username])
-                        ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1000000).' MB');
+                        ->withErrors('Your avatar is too large, max file size: '.($max_upload / 1_000_000).' MB');
                 }
             }
         }
@@ -250,7 +250,7 @@ class UserController extends Controller
         // Style Settings
         $user->style = (int) $request->input('theme');
         $css_url = $request->input('custom_css');
-        if (isset($css_url) && filter_var($css_url, FILTER_VALIDATE_URL) === false) {
+        if (isset($css_url) && ! filter_var($css_url, FILTER_VALIDATE_URL)) {
             return redirect()->route('users.show', ['username' => $user->username])
                 ->withErrors('The URL for the external CSS stylesheet is invalid, try it again with a valid URL.');
         }
@@ -332,10 +332,10 @@ class UserController extends Controller
 
             return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
                 ->withErrors('Your Password Was Incorrect!');
-        } else {
-            return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
-                ->withErrors('Your New Password Is To Weak!');
         }
+
+        return redirect()->route('user_security', ['username' => $user->username, 'hash' => '#password'])
+                ->withErrors('Your New Password Is To Weak!');
     }
 
     /**
@@ -352,17 +352,13 @@ class UserController extends Controller
 
         abort_unless($request->user()->id == $user->id, 403);
 
-        if (config('email-white-blacklist.enabled') === 'allow') {
+        if (config('email-blacklist.enabled') == true) {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:allow', // Whitelist
-            ]);
-        } elseif (config('email-white-blacklist.enabled') === 'block') {
-            $v = validator($request->all(), [
-                'email' => 'required|email|unique:users|email_list:block', // Blacklist
+                'email' => 'required|string|email|max:70|blacklist|unique:users',
             ]);
         } else {
             $v = validator($request->all(), [
-                'email' => 'required|email|unique:users', // Default
+                'email' => 'required|string|email|max:70|unique:users',
             ]);
         }
 
@@ -539,7 +535,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -573,7 +569,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -607,7 +603,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -641,7 +637,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -676,7 +672,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -710,7 +706,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -749,7 +745,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -785,7 +781,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -820,7 +816,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -855,7 +851,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -891,7 +887,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -932,7 +928,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -969,7 +965,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1008,7 +1004,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $notification = $user->notification;
-        if (!$notification) {
+        if (! $notification) {
             $notification = new UserNotification();
             $notification->setDefaultValues();
             $notification->user_id = $user->id;
@@ -1043,7 +1039,7 @@ class UserController extends Controller
         abort_unless($request->user()->id == $user->id, 403);
 
         $privacy = $user->privacy;
-        if (!$privacy) {
+        if (! $privacy) {
             $privacy = new UserPrivacy();
             $privacy->setDefaultValues();
             $privacy->user_id = $user->id;
@@ -1222,7 +1218,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1281,7 +1277,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1318,7 +1314,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1362,7 +1358,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1405,7 +1401,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1464,7 +1460,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1545,7 +1541,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1575,7 +1571,7 @@ class UserController extends Controller
             if ($request->has('direction') && $request->input('direction') != null) {
                 $order = $request->input('direction');
             }
-            if (!$sorting || $sorting == null || !$order || $order == null) {
+            if (! $sorting || $sorting == null || ! $order || $order == null) {
                 $sorting = 'created_at';
                 $order = 'desc';
                 // $order = 'asc';
@@ -1978,7 +1974,7 @@ class UserController extends Controller
         $path = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (!File::isDirectory($path)) {
+        if (! File::isDirectory($path)) {
             File::makeDirectory($path, 0755, true, true);
         }
 
@@ -1993,6 +1989,9 @@ class UserController extends Controller
 
         if ($zip->open($path.'/'.$zipFileName, ZipArchive::CREATE) === true) {
             // Match History Results To Torrents
+            $failCSV = '"Name","URL","ID","info_hash"
+';
+            $failCount = 0;
             foreach ($historyTorrents as $historyTorrent) {
                 // Get Torrent
                 $torrent = Torrent::withAnyStatus()->where('info_hash', '=', $historyTorrent)->first();
@@ -2001,26 +2000,34 @@ class UserController extends Controller
                 $tmpFileName = sprintf('%s.torrent', $torrent->slug);
 
                 // The Torrent File Exist?
-                if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    return redirect()->back()->withErrors('Torrent File Not Found! Please Report This Torrent!');
+                if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+                    $failCSV .= '"'.$torrent->name.'","'.route('torrent', ['id' => $torrent->id]).'","'.$torrent->id.'","'.$historyTorrent.'"
+';
+                    $failCount++;
+                } else {
+                    // Delete The Last Torrent Tmp File If Exist
+                    if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
+                        unlink(getcwd().'/files/tmp/'.$tmpFileName);
+                    }
+
+                    // Get The Content Of The Torrent
+                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                    // Set the announce key and add the user passkey
+                    $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
+                    // Remove Other announce url
+                    unset($dict['announce-list']);
+
+                    $fileToDownload = Bencode::bencode($dict);
+                    file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
+
+                    // Add Files To ZipArchive
+                    $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
                 }
-                // Delete The Last Torrent Tmp File If Exist
-                if (file_exists(getcwd().'/files/tmp/'.$tmpFileName)) {
-                    unlink(getcwd().'/files/tmp/'.$tmpFileName);
-                }
-
-                // Get The Content Of The Torrent
-                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
-                // Set the announce key and add the user passkey
-                $dict['announce'] = route('announce', ['passkey' => $user->passkey]);
-                // Remove Other announce url
-                unset($dict['announce-list']);
-
-                $fileToDownload = Bencode::bencode($dict);
-                file_put_contents(getcwd().'/files/tmp/'.$tmpFileName, $fileToDownload);
-
-                // Add Files To ZipArchive
-                $zip->addFile(getcwd().'/files/tmp/'.$tmpFileName, $tmpFileName);
+            }
+            if ($failCount > 0) {
+                $CSVtmpName = sprintf('%s.zip', $user->username).'-missingTorrentFiles.CSV';
+                file_put_contents(getcwd().'/files/tmp/'.$CSVtmpName, $failCSV);
+                $zip->addFile(getcwd().'/files/tmp/'.$CSVtmpName, 'missingTorrentFiles.CSV');
             }
             // Close ZipArchive
             $zip->close();

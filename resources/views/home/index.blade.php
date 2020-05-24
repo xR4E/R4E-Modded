@@ -6,7 +6,9 @@
         @include('blocks.donations')
 
         @if (!auth()->user()->chat_hidden)
-            @include('blocks.chat')
+            <div id="vue">
+                @include('blocks.chat')
+            </div>
         @endif
 
         @include('blocks.featured')
