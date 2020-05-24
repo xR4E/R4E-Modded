@@ -33,11 +33,6 @@
                 </div>
             </div>
         @else
-            <div class="col-sm-12">
-                <div class="well well-sm mt-20">
-                    <p class="lead text-orange text-center"><strong>@lang('request.no-imdb-id')</strong></p>
-                </div>
-            </div>
             <h1 class="upload-title">@lang('request.add-request')</h1>
             <form role="form" method="POST" action="{{ route('add_request') }}">
                 @csrf
@@ -50,44 +45,30 @@
                                     required>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
-                            <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
+                            <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
                                 <input type="number" name="imdb" value="0" class="form-control"
                                     value="{{ old('imdb') ?? $imdb }}" required>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
-                            <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                            <label for="name">TMDB ID <b>(@lang('torrent.optional'))</b></label>
                             <label>
                                 <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}"
                                     required>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
-                            <label for="name">TVDB ID (Optional)</label>
+                            <label for="name">TVDB ID<b>(@lang('torrent.optional'))</b></label>
                             <label>
                                 <input type="number" name="tvdb" value="0" class="form-control" required>
                             </label>
                         </div>
-        
-                        <div class="form-group">
-                            <label for="name">MAL ID (Optional)</label>
-                            <label>
-                                <input type="number" name="mal" value="0" class="form-control" required>
-                            </label>
-                        </div>
-        
-                        <div class="form-group">
-                            <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                            <label>
-                                <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
-                            </label>
-                        </div>
-        
+
                         <div class="form-group">
                             <label for="category_id">@lang('request.category')</label>
                             <label>
@@ -98,7 +79,7 @@
                                 </select>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="type">@lang('request.type')</label>
                             <label>
@@ -109,13 +90,13 @@
                                 </select>
                             </label>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="description">@lang('request.description')</label>
                             <label for="request-form-description"></label><textarea id="request-form-description"
                                 name="description" cols="30" rows="10" class="form-control"></textarea>
                         </div>
-        
+
                         <div class="form-group">
                             <label for="bonus_point">@lang('request.reward')
                                 <small><em>(@lang('request.reward-desc'))</em></small></label>
@@ -123,7 +104,7 @@
                                 <input class="form-control" name="bounty" type="number" min='100' value="100" required>
                             </label>
                         </div>
-        
+
                         <label for="anon" class="control-label">@lang('common.anonymous')?</label>
                         <div class="radio-inline">
                             <label><input type="radio" name="anon" value="1">@lang('common.yes')</label>
@@ -132,7 +113,7 @@
                             <label><input type="radio" name="anon" checked="checked" value="0">@lang('common.no')</label>
                         </div>
                     </div>
-        
+
                     <br>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
@@ -149,6 +130,6 @@
             $('#request-form-description').wysibb({});
             emoji.textcomplete()
         })
-    
+
     </script>
 @endsection

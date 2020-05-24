@@ -45,7 +45,7 @@ class StatsController extends Controller
     {
         // Total Members Count (All Groups)
         $all_user = cache()->remember('all_user', $this->expiresAt, function () {
-            return User::withTrashed()->count();
+            return User::count();
         });
 
         // Total Active Members Count (Not Validating, Banned, Disabled, Pruned)
@@ -81,7 +81,7 @@ class StatsController extends Controller
                 return Group::where('slug', '=', 'pruned')->pluck('id');
             });
 
-            return User::onlyTrashed()->where('group_id', '=', $pruned_group[0])->count();
+            return User::where('group_id', '=', $pruned_group[0])->count();
         });
 
         // Total Banned Members Count
@@ -431,7 +431,7 @@ class StatsController extends Controller
     {
         // Fetch Users In Group
         $group = Group::findOrFail($id);
-        $users = User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100);
+        $users = User::where('group_id', '=', $group->id)->latest()->paginate(100);
 
         return view('stats.groups.group', ['users' => $users, 'group' => $group]);
     }

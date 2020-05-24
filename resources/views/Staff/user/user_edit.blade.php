@@ -230,7 +230,7 @@
                                         {{ $note->message }}
                                     </td>
                                     <td>
-                                        {{ $note->created_at->toDayDateTimeString() }} ({{ $note->created_at->diffForHumans() }})
+                                        {{ $note->created_at->toDateTimeString() }} ({{ $note->created_at->diffForHumans() }})
                                     </td>
                                     <td>
                                         <form action="{{ route('staff.notes.destroy', ['id' => $note->id]) }}" method="POST">

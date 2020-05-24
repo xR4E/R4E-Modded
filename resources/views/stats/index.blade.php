@@ -27,12 +27,6 @@
                         <p>@lang('stat.nerd-stats-desc'). <b>(Updated Every 10 Minutes!)</b></p>
     
                         <div class="inner_stats">
-                            @foreach ($categories as $category)
-                                <div class="stat">
-                                    <p>{{ $category->torrents_count }}</p>
-                                    <span class="badge-extra">{{ $category->name }} @lang('torrent.category')</span>
-                                </div>
-                            @endforeach
     
                             <div class="stat">
                                 <p>{{ $num_torrent }}</p>

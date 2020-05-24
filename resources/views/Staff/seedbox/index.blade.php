@@ -50,7 +50,7 @@
                                     </td>
                                     <td class="text-success">{{ $seedbox->ip }}</td>
                                     <td>
-                                        {{ $seedbox->created_at->toDayDateTimeString() }}
+                                        {{ $seedbox->created_at->toDateTimeString() }}
                                         ({{ $seedbox->created_at->diffForHumans() }})
                                     </td>
                                     <td>

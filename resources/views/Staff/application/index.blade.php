@@ -59,7 +59,7 @@
                                     <td>{{ $application->imageProofs->count() }}</td>
                                     <td>{{ $application->urlProofs->count() }}</td>
                                     <td>
-                                        {{ $application->created_at->toDayDateTimeString() }}
+                                        {{ $application->created_at->toDateTimeString() }}
                                         ({{ $application->created_at->diffForHumans() }})
                                     </td>
                                     <td>

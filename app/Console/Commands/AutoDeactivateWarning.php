@@ -54,7 +54,7 @@ class AutoDeactivateWarning extends Command
             $pm->sender_id = 1;
             $pm->receiver_id = $warning->warneduser->id;
             $pm->subject = 'Hit and Run Warning Deactivated';
-            $pm->message = 'The [b]WARNING[/b] you received relating to Torrent '.$warning->torrenttitle->name.' has expired! Try not to get more! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+            $pm->message = 'The [b]WARNING[/b] you received relating to torrent '.$warning->torrenttitle->name.' has expired! Try not to get more!<br>[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
             $pm->save();
         }
         $this->comment('Automated Warning Deativation Command Complete');

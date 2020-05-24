@@ -54,10 +54,6 @@
                 <h2 class="inactive underlineHover">@lang('auth.signup') </h2>
             </a>
 
-            <div class="fadeIn first">
-                <img src="{{ url('/img/icon.svg') }}" id="icon" alt="@lang('auth.user-icon')" />
-            </div>
-
             <form role="form" method="POST" action="{{ route('login') }}">
                 @csrf
                 <div>
@@ -101,6 +97,8 @@
                     <h2 class="inactive underlineHover">@lang('auth.lost-username') </h2>
                 </a>
             </div>
+            <p>You can contact us via Discord if you need help<br>                                     
+            To connect directly with {{ config('custom.contact-direct-name-support') }}, <a target="_blank" rel="noopener noreferrer" href="{{ config('custom.contact-direct-discord') }}">click here</a>.</p>
         </div>
     </div>
 
@@ -115,12 +113,12 @@
                     showConfirmButton: false,
                     timer: 3000
                 });
-        
+
                 Toast.fire({
                     icon: '{{ $key }}',
                     title: '{{ Session::get($key) }}'
                 })
-        
+
             </script>
         @endif
     @endforeach

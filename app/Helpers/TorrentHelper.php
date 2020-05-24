@@ -55,7 +55,7 @@ class TorrentHelper
                 $pm->sender_id = 1;
                 $pm->receiver_id = $wish->user_id;
                 $pm->subject = 'Wish List Notice!';
-                $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
+                $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]<br>
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }

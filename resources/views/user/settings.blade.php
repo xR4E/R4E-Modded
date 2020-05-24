@@ -74,7 +74,7 @@
                                         @endif value="0">Compact</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Chat</h3>
                                 <hr>
@@ -99,19 +99,10 @@
                                         @endif value="0">@lang('common.no')</label>
                                 </div>
                             </div>
-    
+
                             <div class="well">
                                 <h3>Torrent</h3>
                                 <hr>
-                                <label for="torrent_layout" class="control-label">Default Torrent Layout?</label>
-                                <select class="form-control" id="torrent_layout" name="torrent_layout">
-                                <option @if ($user->torrent_layout == 0) selected @endif value="0">Torrent List</option>
-                                <option @if ($user->torrent_layout == 1) selected @endif value="1">Torrent Grouping
-                                    </option>
-                                <option @if ($user->torrent_layout == 2) selected @endif value="2">Torrent Cards
-                                    </option>
-                                </select>
-                                <br>
                                 <label for="poster" class="control-label">Show Posters On Torrent List View?</label>
                                 <div class="radio-inline">
                                     <label><input type="radio" name="show_poster" @if ($user->show_poster == 1) checked

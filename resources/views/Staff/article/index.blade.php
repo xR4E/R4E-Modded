@@ -43,7 +43,7 @@
                                 <a
                                     href="{{ route('users.show', ['username' => $article->user->username]) }}">{{ $article->user->username }}</a>
                             </td>
-                            <td>{{ $article->created_at->toDayDateTimeString() }}</td>
+                            <td>{{ $article->created_at->toDateTimeString() }}</td>
                             <td>
                                 <form action="{{ route('staff.articles.destroy', ['id' => $article->id]) }}" method="POST">
                                     @csrf

@@ -54,7 +54,7 @@
                                 <strong>@lang('common.created_at')</strong>
                             </td>
                             <td>
-                                {{ $application->created_at->toDayDateTimeString() }}
+                                {{ $application->created_at->toDateTimeString() }}
                                 ({{ $application->created_at->diffForHumans() }})
                             </td>
                         </tr>

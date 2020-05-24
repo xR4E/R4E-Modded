@@ -61,7 +61,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        {{ $audit->created_at->toDayDateTimeString() }}
+                                        {{ $audit->created_at->toDateTimeString() }}
                                         ({{ $audit->created_at->diffForHumans() }})
                                     </td>
                                     <td>

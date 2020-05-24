@@ -323,6 +323,7 @@ class NerdBot
         }
 
         return sprintf('In The Last 24 Hours %s Users Have Registered To ', $registrations).config('other.title').'!';
+
     }
 
     /**

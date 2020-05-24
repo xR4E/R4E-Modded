@@ -90,7 +90,7 @@ class AutoGraveyard extends Command
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user->id;
                 $pm->subject = 'Successful Graveyard Resurrection';
-                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
+                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] :zombie: ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!<br>
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             }

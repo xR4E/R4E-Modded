@@ -27,7 +27,7 @@
                         placeholder="@lang('torrent.name')">
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="imdb" class="col-sm-1 label label-default">ID</label>
                 <div class="col-sm-2">
@@ -39,11 +39,8 @@
                 <div class="col-sm-2">
                     <label for="tmdb"></label><input type="text" class="form-control" id="tmdb" placeholder="TMDB #">
                 </div>
-                <div class="col-sm-2">
-                    <label for="mal"></label><input type="text" class="form-control" id="mal" placeholder="MAL #">
-                </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="category" class="col-sm-1 label label-default">@lang('torrent.category')</label>
                 <div class="col-sm-10">
@@ -56,7 +53,7 @@
                     @endforeach
                 </div>
             </div>
-    
+
             <div class="form-group">
                 <label for="type" class="col-sm-1 label label-default">@lang('torrent.type')</label>
                 <div class="col-sm-10">
@@ -70,7 +67,7 @@
                 </div>
             </div>
         </form>
-    
+
         <hr>
         <div class="form-horizontal">
             <div class="form-group">
@@ -100,7 +97,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <div class="block">
             <div class="header gradient silver">
@@ -108,6 +105,11 @@
                     <h1>@lang('graveyard.graveyard')
                         <span class="text-red">({{ $deadcount }} @lang('graveyard.dead')!)</span>
                     </h1>
+                </div>
+                <div class="text-center">
+                    <h2>Torrents uploaded after 2020-02-02 can be reseeded by staff.</h2>
+                    <h3>Just request a reseed!</h3>
+                    <br>
                 </div>
             </div>
             <div id="result">
@@ -120,7 +122,7 @@
 @section('javascripts')
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         var xhr = new XMLHttpRequest();
-    
+
         function faceted(page) {
             var csrf = "{{ csrf_token() }}";
             var search = $("#search").val();
@@ -139,7 +141,7 @@
             $(".type:checked").each(function() {
                 types.push($(this).val());
             });
-    
+
             if (xhr !== 'undefined') {
                 xhr.abort();
             }
@@ -168,53 +170,53 @@
                 $("#result").html($data);
             });
         }
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(window).on("load", faceted())
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#search").keyup(function() {
             faceted();
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#imdb").keyup(function() {
             faceted();
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#tvdb").keyup(function() {
             faceted();
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#tmdb").keyup(function() {
             faceted();
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#mal").keyup(function() {
             faceted();
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(".category,.type").on("click", function() {
             faceted();
         });
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $("#sorting,#direction,#qty").on('change', function() {
             faceted();
         });
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).on('click', '.pagination a', function(e) {
@@ -224,12 +226,12 @@
             window.history.pushState("", "", url);
             faceted(page);
         })
-    
+
     </script>
     <script nonce="{{ Bepsvpt\SecureHeaders\SecureHeaders::nonce() }}">
         $(document).ajaxComplete(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
-    
+
     </script>
 @endsection

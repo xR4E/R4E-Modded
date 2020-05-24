@@ -176,10 +176,6 @@ class BonusController extends Controller
 
         //Dying Torrent
         $dying = $this->getDyingCount($request);
-        //Legendary Torrents
-        $legendary = $this->getLegendaryCount($request);
-        //Old Torrents
-        $old = $this->getOldCount($request);
         //Large Torrents
         $huge = $this->getHugeCount($request);
         //Large Torrents
@@ -200,8 +196,8 @@ class BonusController extends Controller
 
         //Total points per hour
         $total =
-            ($dying * 2) + ($legendary * 1.5) + ($old * 1) + ($huge * 0.75) + ($large * 0.50) + ($regular * 0.25)
-            + ($participant * 0.25) + ($teamplayer * 0.50) + ($committed * 0.75) + ($mvp * 1) + ($legend * 2);
+            ($dying * 2) + ($huge * 2) + ($large * 0.50) + ($regular * 0.25)
+            + ($participant * 0.50) + ($teamplayer * 0.75) + ($committed * 1) + ($mvp * 2) + ($legend * 4);
 
         $daily = $total * 24;
         $weekly = $total * 24 * 7;
@@ -213,8 +209,6 @@ class BonusController extends Controller
         return view('bonus.index', [
             'userbon'           => $userbon,
             'dying'             => $dying,
-            'legendary'         => $legendary,
-            'old'               => $old,
             'huge'              => $huge,
             'large'             => $large,
             'regular'           => $regular,
@@ -307,7 +301,7 @@ class BonusController extends Controller
                 $pm->sender_id = 1;
                 $pm->receiver_id = $user_acc->id;
                 $pm->subject = 'Personal 24 Hour Freeleech Activated';
-                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on %s [b]', $current->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
+                $pm->message = sprintf('Your [b]Personal 24 Hour Freeleech[/b] session has started! It will expire on [b]%s ', $current->addDays(1)->toDateTimeString()).config('app.timezone').'[/b]!<br>
                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                 $pm->save();
             } else {
@@ -548,49 +542,6 @@ class BonusController extends Controller
     }
 
     /**
-     * @method getLegendaryCount
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return int
-     */
-    public function getLegendaryCount(Request $request)
-    {
-        $user = $request->user();
-
-        return DB::table('peers')
-            ->select('peers.hash')->distinct()
-            ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
-            ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-            ->where('peers.seeder', 1)
-            ->where('peers.user_id', $user->id)
-            ->count();
-    }
-
-    /**
-     * @method getOldCount
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return int
-     */
-    public function getOldCount(Request $request)
-    {
-        $user = $request->user();
-
-        return DB::table('peers')
-            ->select('peers.hash')->distinct()
-            ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
-            ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
-            ->whereRaw('torrents.created_at > date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
-            ->where('peers.seeder', 1)
-            ->where('peers.user_id', $user->id)
-            ->count();
-    }
-
-    /**
      * @method getHugeCount
      *
      * @param \Illuminate\Http\Request $request
@@ -667,48 +618,6 @@ class BonusController extends Controller
             ->select('history.seedtime')->distinct()
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000)
-            ->where('history.seedtime', '<', 2592000 * 2)
-            ->where('history.user_id', $user->id)
-            ->count();
-    }
-
-    /**
-     * @method getParticipaintSeedCount
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return int
-     */
-    public function getTeamPlayerSeedCount(Request $request)
-    {
-        $user = $request->user();
-
-        return DB::table('history')
-            ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2592000 * 2)
-            ->where('history.seedtime', '<', 2592000 * 3)
-            ->where('history.user_id', $user->id)
-            ->count();
-    }
-
-    /**
-     * @method getParticipaintSeedCount
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return int
-     */
-    public function getCommitedSeedCount(Request $request)
-    {
-        $user = $request->user();
-
-        return DB::table('history')
-            ->select('history.seedtime')->distinct()
-            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
-            ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2592000 * 3)
             ->where('history.seedtime', '<', 2592000 * 6)
             ->where('history.user_id', $user->id)
@@ -722,7 +631,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getMVPSeedCount(Request $request)
+    public function getTeamPlayerSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -743,7 +652,7 @@ class BonusController extends Controller
      *
      * @return int
      */
-    public function getLegendarySeedCount(Request $request)
+    public function getCommitedSeedCount(Request $request)
     {
         $user = $request->user();
 
@@ -752,6 +661,48 @@ class BonusController extends Controller
             ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
             ->where('history.active', 1)
             ->where('history.seedtime', '>=', 2592000 * 12)
+            ->where('history.seedtime', '<', 2592000 * 18)
+            ->where('history.user_id', $user->id)
+            ->count();
+    }
+
+    /**
+     * @method getParticipaintSeedCount
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return int
+     */
+    public function getMVPSeedCount(Request $request)
+    {
+        $user = $request->user();
+
+        return DB::table('history')
+            ->select('history.seedtime')->distinct()
+            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->where('history.active', 1)
+            ->where('history.seedtime', '>=', 2592000 * 18)
+            ->where('history.seedtime', '<', 2592000 * 24)
+            ->where('history.user_id', $user->id)
+            ->count();
+    }
+
+    /**
+     * @method getParticipaintSeedCount
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return int
+     */
+    public function getLegendarySeedCount(Request $request)
+    {
+        $user = $request->user();
+
+        return DB::table('history')
+            ->select('history.seedtime')->distinct()
+            ->join('torrents', 'torrents.info_hash', '=', 'history.info_hash')
+            ->where('history.active', 1)
+            ->where('history.seedtime', '>=', 2592000 * 24)
             ->where('history.user_id', $user->id)
             ->count();
     }

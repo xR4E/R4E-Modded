@@ -36,7 +36,7 @@
                                 <a href="{{ route('albums.show', ['id' => $album->id]) }}" class="btn btn-md btn-primary">View
                                     Album</a>
                                 <br>
-                                <small>Created: {{ $album->created_at->toDayDateTimeString() }}</small>
+                                <small>Created: {{ $album->created_at->toDateTimeString() }}</small>
                                 <br>
                                 <small>By: {{ $album->user->username }}</small>
                             </div>

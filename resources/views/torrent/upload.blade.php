@@ -50,9 +50,8 @@
                 <p class="text-success">{!! trans('torrent.announce-url-desc-url', ['url' => config('other.upload-guide_url')])
                     !!}
                 </p>
-                <p class="text-danger">@lang('torrent.announce-url-desc2')!</p>
             </div>
-        
+
             <div class="upload col-md-12">
                 <h3 class="upload-title">@lang('torrent.torrent')</h3>
                 <form name="upload" class="upload-form" method="POST" action="{{ route('upload') }}"
@@ -62,18 +61,13 @@
                         <label for="torrent">@lang('torrent.file')</label>
                         <input class="upload-form-file" type="file" accept=".torrent" name="torrent" id="torrent" required>
                     </div>
-        
-                    <div class="form-group">
-                        <label for="nfo">NFO @lang('torrent.file') (@lang('torrent.optional'))</label>
-                        <input class="upload-form-file" type="file" accept=".nfo" name="nfo">
-                    </div>
-        
+
                     <div class="form-group">
                         <label for="name">@lang('torrent.title')</label>
                         <label for="title"></label><input type="text" name="name" id="title" class="form-control"
                             value="{{ old('name') ?? $title }}" required>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="category_id">@lang('torrent.category')</label>
                         <label>
@@ -85,7 +79,7 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <label>
@@ -97,42 +91,28 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
-                        <label>
-                            <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
-                        </label>
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">TMDB ID</label> <strong>(@lang('request.required') for TV series, Movies and Documentaries if entry exists)</strong>
                         <label>
                             <input type="number" name="tmdb" class="form-control" value="{{ old('tmdb') ?? $tmdb }}" required>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">TVDB ID (@lang('torrent.optional'))</label>
+                        <label for="name">TVDB ID</label> (Recommended for TV Series including TV Documentaries)
                         <label>
                             <input type="number" name="tvdb" value="{{ old('tvdb') ?? '0' }}" class="form-control" required>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">MAL ID (@lang('torrent.optional'))</label>
+                        <label for="name">IMDB ID</label> (@lang('torrent.optional'))
                         <label>
-                            <input type="number" name="mal" value="{{ old('mal') ?? '0' }}" class="form-control" required>
+                            <input type="number" name="imdb" class="form-control" value="{{ old('imdb') ?? $imdb }}" required>
                         </label>
                     </div>
-        
-                    <div class="form-group">
-                        <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                        <label>
-                            <input type="number" name="igdb" value="{{ old('igdb') ?? '0' }}" class="form-control" required>
-                        </label>
-                    </div>
-        
+
                     <div class="form-group">
                         <label for="description">@lang('torrent.description')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description" name="description"
@@ -140,7 +120,7 @@
                         {{ old('description') }}
                         </textarea>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="mediainfo">@lang('torrent.media-info-parser')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description" name="mediainfo"
@@ -148,7 +128,7 @@
                         {{ old('mediainfo') }}
                         </textarea>
                     </div>
-        
+
                     <label for="anonymous" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" value="1">@lang('common.yes')</label>
@@ -156,9 +136,9 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" checked="checked" value="0">@lang('common.no')</label>
                     </div>
-        
+
                     <br>
-        
+
                     <label for="stream" class="control-label">@lang('torrent.stream-optimized')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="stream" value="1">@lang('common.yes')</label>
@@ -166,9 +146,9 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="stream" checked="checked" value="0">@lang('common.no')</label>
                     </div>
-        
+
                     <br>
-        
+
                     <label for="sd" class="control-label">@lang('torrent.sd-content')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="sd" value="1">@lang('common.yes')</label>
@@ -176,9 +156,9 @@
                     <div class="radio-inline">
                         <label><input type="radio" name="sd" checked="checked" value="0">@lang('common.no')</label>
                     </div>
-        
+
                     <br>
-        
+
                     @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
                         <label for="internal" class="control-label">@lang('torrent.internal')?</label>
                         <div class="radio-inline">
@@ -187,12 +167,12 @@
                         <div class="radio-inline">
                             <label><input type="radio" name="internal" checked="checked" value="0">@lang('common.no')</label>
                         </div>
-            
+
                         <br>
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
-        
+
                     <div class="text-center">
                         <button type="submit" name="preview" value="true" id="preview"
                             class="btn btn-info">@lang('common.preview')</button>

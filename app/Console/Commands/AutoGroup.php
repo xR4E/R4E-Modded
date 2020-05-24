@@ -92,8 +92,8 @@ class AutoGroup extends Command
                 $user->group_id = 14;
                 $user->save();
             }
-            // Seeder Seedsize >= 5TiB and account 1 month old and seedtime average 30 days or better
-            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('5TiB') && $user->getRatio() >= config('other.ratio') && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
+            // Seeder Seedsize >= 3TiB and account 1 month old and seedtime average 30 days or better
+            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('3TiB') && $user->getRatio() >= config('other.ratio') && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 && $user->created_at < $current->copy()->subDays(30)->toDateTimeString() && $user->group_id != 17) {
                 $user->group_id = 17;
                 $user->save();
             }
@@ -102,8 +102,8 @@ class AutoGroup extends Command
                 $user->group_id = 16;
                 $user->save();
             }
-            // Archivist Seedsize >= 10TiB and account 3 month old and seedtime average 60 days or better
-            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('10TiB') && $user->getRatio() >= config('other.ratio') && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 * 2 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 18) {
+            // Archivist Seedsize >= 6TB and account 3 month old and seedtime average 60 days or better
+            if ($user->getTotalSeedSize() >= $byteUnits->bytesFromUnit('6TiB') && $user->getRatio() >= config('other.ratio') && round($user->getTotalSeedTime() / max(1, $hiscount)) > 2592000 * 2 && $user->created_at < $current->copy()->subDays(90)->toDateTimeString() && $user->group_id != 18) {
                 $user->group_id = 18;
                 $user->save();
             }

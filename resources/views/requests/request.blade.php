@@ -395,7 +395,7 @@
                                                     @endif
                                                     <strong><a href="{{ route('users.show', ['username' => $comment->user->username]) }}" style="color:{{ $comment->user->group->color }};"><span><i class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong>
                                                 @endif
-                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
+                                                <span class="text-muted"><small><em>{{ $comment->created_at->toDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                                 @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                     <a title="@lang('common.delete-your-comment')"
                                                        href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i

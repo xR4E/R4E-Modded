@@ -74,7 +74,7 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                {{ $report->created_at->toDayDateTimeString() }}
+                                                {{ $report->created_at->toDateTimeString() }}
                                             </td>
                                             <td class="user-name">
                                                 <a class="name"

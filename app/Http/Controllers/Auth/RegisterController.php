@@ -164,10 +164,9 @@ class RegisterController extends Controller
         // Select A Random Welcome Message
         $profile_url = hrefProfile($user);
         $welcomeArray = [
-            sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :rocket:',
-            sprintf('[url=%s]%s[/url], We\'ve been expecting you :space_invader:', $profile_url, $user->username),
-            sprintf('[url=%s]%s[/url] has arrived. Party\'s over. :cry:', $profile_url, $user->username),
-            sprintf('It\'s a bird! It\'s a plane! Nevermind, it\'s just [url=%s]%s[/url].', $profile_url, $user->username),
+            sprintf('[url=%s]%s[/url], Welcome to ', $profile_url, $user->username).config('other.title').'! Hope you enjoy the community :checkered_flag:',
+            sprintf('[url=%s]%s[/url], We\'ve been expecting you :checkered_flag:', $profile_url, $user->username),
+            sprintf('[url=%s]%s[/url] has arrived. The world is safe once more, [b][i]but for how long??[/i][/b]', $profile_url, $user->username),
             sprintf('Ready player [url=%s]%s[/url].', $profile_url, $user->username),
             sprintf('A wild [url=%s]%s[/url] appeared.', $profile_url, $user->username),
             'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you ( ͡° ͜ʖ ͡°)', $profile_url, $user->username),

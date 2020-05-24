@@ -42,4 +42,11 @@ return [
 
     // Top Torrents
     'new-torrents' => 'New Torrents',
+
+    // Calendar
+    'calendar' => 'Racing Calendar',
+
+    // Donations
+    'donation-title' => 'Donations Status',
+    'donation-reached' => 'Donations reached!',
 ];

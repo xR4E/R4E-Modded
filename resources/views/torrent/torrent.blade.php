@@ -267,7 +267,7 @@
                     @endif
 
 
-                    @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                    @if (auth()->user()->group->is_modo)
                         <tr>
                             <td class="col-sm-2"><strong>Staff Tools</strong></td>
                             <td>
@@ -402,10 +402,25 @@
 
                     <tr>
                         <td class="col-sm-2"><strong>@lang('torrent.category')</strong></td>
-                        <td><i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small"
-                               data-toggle="tooltip"
-
-                               data-original-title="{{ $torrent->category->name }} @lang('torrent.torrent')"></i> {{ $torrent->category->name }}
+                        <td>
+                        @if ($torrent->category->image != null)
+                                <div class="text-left">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <img src="{{ url('files/img/' . $torrent->category->image) }}" data-toggle="tooltip"
+                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"
+                                        alt="{{ $torrent->category->name }}">
+                                        {{ $torrent->category->name }}
+                                </a>
+                            </div>
+                        @else
+                                <div class="text-left">
+                                    <a href="{{ route('categories.show', ['id' => $torrent->category->id]) }}">
+                                    <i class="{{ $torrent->category->icon }} torrent-icon torrent-icon-small" data-toggle="tooltip"
+                                        data-original-title="{{ $torrent->category->name }} {{ strtolower(trans('torrent.torrent')) }}"></i>
+                                        {{ $torrent->category->name }}
+                                </a>
+                            </div>
+                        @endif
                         </td>
                     </tr>
 
@@ -485,7 +500,7 @@
                                 <div class="panel-body">
                                     <div class="text-center">
                                         <span class="text-bold text-blue">
-                                            @emojione(':blue_heart:') @lang('torrent.media-info') @emojione(':blue_heart:')
+                                            @emojione(':checkered_flag:') @lang('torrent.media-info') @emojione(':checkered_flag:')
                                         </span>
                                     </div>
                                     <br>
@@ -571,7 +586,7 @@
                                     <br>
                                     <div class="text-center">
                                         <button class="show_hide btn btn-labeled btn-primary" href="#">
-                                            <span class="btn-label">@emojione(':poop:')</span>{{ strtoupper(trans('torrent.original-output')) }}
+                                            <span class="btn-label">@emojione(':information_source:')</span>{{ strtoupper(trans('torrent.original-output')) }}
                                         </button>
                                     </div>
                                     <div class="slidingDiv">
@@ -662,10 +677,6 @@
         </div>
     </div>
 
-    @if ($torrent->category->movie_meta || $torrent->category->tv_meta)
-        @include('torrent.partials.movie_tv_recommendations')
-    @endif
-
     <div class="torrent box container" id="comments">
         <div class="clearfix"></div>
         <div class="row ">
@@ -709,7 +720,7 @@
                                                             href="{{ route('users.show', ['username' => $comment->user->username]) }}"
                                                             style="color:{{ $comment->user->group->color }}"><span><i
                                                                     class="{{ $comment->user->group->icon }}"></i> {{ $comment->user->username }}</span></a></strong> @endif
-                                            <span class="text-muted"><small><em>{{ $comment->created_at->toDayDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
+                                            <span class="text-muted"><small><em>{{ $comment->created_at->toDateTimeString() }} ({{ $comment->created_at->diffForHumans() }})</em></small></span>
                                             @if ($comment->user_id == auth()->id() || auth()->user()->group->is_modo)
                                                 <a title="@lang('common.delete-comment')"
                                                    href="{{route('comment_delete',['comment_id'=>$comment->id])}}"><i

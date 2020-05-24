@@ -115,8 +115,8 @@ Route::group(['middleware' => 'language'], function () {
         Route::group(['prefix' => 'rss'], function () {
             Route::name('rss.')->group(function () {
                 Route::get('/', 'RssController@index')->name('index');
-                Route::get('/create', 'RssController@create')->name('create');
-                Route::post('/store', 'RssController@store')->name('store');
+                //Route::get('/create', 'RssController@create')->name('create');
+                //Route::post('/store', 'RssController@store')->name('store');
                 Route::get('/{id}/edit', 'RssController@edit')->name('edit');
                 Route::patch('/{id}/update', 'RssController@update')->name('update');
                 Route::delete('/{id}/destroy', 'RssController@destroy')->name('destroy');

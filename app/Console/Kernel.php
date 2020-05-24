@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('auto:group ')->daily();
-        $schedule->command('auto:nerdstat ')->hourly();
+        $schedule->command('auto:nerdstat ')->cron('0 */6 * * *');
         $schedule->command('auto:graveyard')->daily();
         $schedule->command('auto:highspeed_tag')->hourly();
         $schedule->command('auto:prewarning')->hourly();

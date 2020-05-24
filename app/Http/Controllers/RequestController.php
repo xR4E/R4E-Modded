@@ -113,8 +113,6 @@ class RequestController extends Controller
         $imdb = str_replace('tt', '', $imdb_id);
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
         $categories = $request->input('categories');
         $types = $request->input('types');
         $myrequests = $request->input('myrequests');
@@ -307,8 +305,6 @@ class RequestController extends Controller
         $tr->imdb = $request->input('imdb');
         $tr->tvdb = $request->input('tvdb');
         $tr->tmdb = $request->input('tmdb');
-        $tr->mal = $request->input('mal');
-        $tr->igdb = $request->input('igdb');
         $tr->type = $request->input('type');
         $tr->bounty = $request->input('bounty');
         $tr->votes = 1;
@@ -319,8 +315,6 @@ class RequestController extends Controller
             'imdb'        => 'required|numeric',
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',
@@ -405,8 +399,6 @@ class RequestController extends Controller
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
         $category = $request->input('category_id');
         $type = $request->input('type');
         $description = $request->input('description');
@@ -416,8 +408,6 @@ class RequestController extends Controller
         $torrentRequest->imdb = $imdb;
         $torrentRequest->tvdb = $tvdb;
         $torrentRequest->tmdb = $tmdb;
-        $torrentRequest->mal = $mal;
-        $torrentRequest->igdb = $igdb;
         $torrentRequest->category_id = $category;
         $torrentRequest->type = $type;
         $torrentRequest->description = $description;
@@ -428,8 +418,6 @@ class RequestController extends Controller
             'imdb'        => 'required|numeric',
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'type'        => 'required',
             'description' => 'required|string',

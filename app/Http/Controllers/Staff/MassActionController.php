@@ -79,7 +79,7 @@ class MassActionController extends Controller
             return Group::where('slug', '=', 'validating')->pluck('id');
         });
         $member_group = cache()->rememberForever('member_group', function () {
-            return Group::where('slug', '=', 'user')->pluck('id');
+            return Group::where('slug', '=', 'rookie')->pluck('id');
         });
         $users = User::where('group_id', '=', $validating_group[0])->get();
 

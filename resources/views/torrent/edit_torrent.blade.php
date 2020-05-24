@@ -21,42 +21,28 @@
                             <input type="text" class="form-control" name="name" value="{{ $torrent->name }}" required>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('common.required'))</b></label>
+                        <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="imdb" value="{{ $torrent->imdb }}" class="form-control" required>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
-                        <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">TMDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="tmdb" value="{{ $torrent->tmdb }}" class="form-control" required>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
-                        <label for="name">TVDB ID (Optional)</label>
+                        <label for="name">TVDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="tvdb" value="{{ $torrent->tvdb }}" class="form-control" required>
                         </label>
                     </div>
-    
-                    <div class="form-group">
-                        <label for="name">MAL ID (Optional)</label>
-                        <label>
-                            <input type="number" name="mal" value="{{ $torrent->mal }}" class="form-control" required>
-                        </label>
-                    </div>
-    
-                    <div class="form-group">
-                        <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                        <label>
-                            <input type="number" name="igdb" value="{{ $torrent->igdb }}" class="form-control" required>
-                        </label>
-                    </div>
-    
+
                     <div class="form-group">
                         <label for="category_id">@lang('torrent.category')</label>
                         <label>
@@ -70,7 +56,7 @@
                             </select>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="type">@lang('torrent.type')</label>
                         <label>
@@ -84,14 +70,14 @@
                             </select>
                         </label>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="description">@lang('common.description')</label>
                         <label for="upload-form-description"></label><textarea id="upload-form-description"
                             name="description" cols="30" rows="10"
                             class="form-control">{{ $torrent->description }}</textarea>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="description">@lang('torrent.media-info')</label>
                         <label>
@@ -99,7 +85,7 @@
                                 class="form-control">{{ $torrent->mediainfo }}</textarea>
                         </label>
                     </div>
-    
+
                     <label for="hidden" class="control-label">@lang('common.anonymous')?</label>
                     <div class="radio-inline">
                         <label><input type="radio" name="anonymous" @if ($torrent->anon == 1) checked
@@ -148,6 +134,19 @@
                     @else
                         <input type="hidden" name="internal" value="0">
                     @endif
+                    @if (auth()->user()->group->is_modo)
+                        <label for="notify" class="control-label">PM Uploader?</label>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="notify" value="1">@lang('common.yes')</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="notify" checked="checked" value="0">@lang('common.no')</label>
+                        </div>
+                        <br>
+                        <br>
+                    @else
+                        <input type="hidden" name="notify" value="0">
+                    @endif
                     <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                 </form>
             </div>
@@ -161,6 +160,6 @@
             $('#upload-form-description').wysibb({});
             emoji.textcomplete()
         })
-    
+
     </script>
 @endsection

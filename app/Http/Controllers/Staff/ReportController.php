@@ -82,10 +82,8 @@ class ReportController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $report->reporter_id;
         $pm->subject = 'Your Report Has A New Verdict';
-        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s
-        
-                        [b]ORIGINAL MESSAGE:[/b] %s
-                        
+        $pm->message = sprintf('[b]REPORT TITLE:[/b] %s<br>
+                        [b]ORIGINAL MESSAGE:[/b] %s<br>
                         [b]VERDICT:[/b] %s', $report->title, $report->message, $report->verdict);
         $pm->save();
 

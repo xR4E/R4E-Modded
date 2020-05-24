@@ -161,11 +161,13 @@
             <li class="nav-header head">
                 <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.logs')
             </li>
+            @if (auth()->user()->group->is_admin)
             <li>
                 <a href="{{ route('staff.audits.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.audit-log')
                 </a>
             </li>
+            @endif
             <li>
                 <a href="{{ route('staff.bans.index') }}">
                     <i class="{{ config('other.font-awesome') }} fa-file"></i> @lang('staff.bans-log')

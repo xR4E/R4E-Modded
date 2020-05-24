@@ -33,7 +33,7 @@ return [
     |
     */
 
-    'message' => 'Welcome To [b]UNIT3D[/b].
+    'message' => 'Welcome To [b]UNIT3D[/b].<br>
 
     - UNIT3D :space_invader:',
 ];

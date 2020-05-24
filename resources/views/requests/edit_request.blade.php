@@ -43,42 +43,28 @@
                             <input type="text" name="name" class="form-control" value="{{ $torrentRequest->name }}" required>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">IMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">IMDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="imdb" value="{{ $torrentRequest->imdb }}" class="form-control" required>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">TMDB ID <b>(@lang('request.required'))</b></label>
+                        <label for="name">TMDB ID <b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="tmdb" value="{{ $torrentRequest->tmdb }}" class="form-control" required>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
-                        <label for="name">TVDB ID (Optional)</label>
+                        <label for="name">TVDB ID<b>(@lang('torrent.optional'))</b></label>
                         <label>
                             <input type="number" name="tvdb" value="{{ $torrentRequest->tvdb }}" class="form-control" required>
                         </label>
                     </div>
-        
-                    <div class="form-group">
-                        <label for="name">MAL ID (Optional)</label>
-                        <label>
-                            <input type="number" name="mal" value="{{ $torrentRequest->mal }}" class="form-control" required>
-                        </label>
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="name">IGDB ID <b>(@lang('request.required'))</b></label>
-                        <label>
-                            <input type="number" name="igdb" value="{{ $torrentRequest->igdb }}" class="form-control" required>
-                        </label>
-                    </div>
-        
+
                     <div class="form-group">
                         <label for="category_id">@lang('request.category')</label>
                         <label>
@@ -92,7 +78,7 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="type">@lang('request.type')</label>
                         <label>
@@ -106,15 +92,15 @@
                             </select>
                         </label>
                     </div>
-        
+
                     <div class="form-group">
                         <label for="description">@lang('request.description')</label>
                         <label for="request-form-description"></label><textarea id="request-form-description" name="description"
                             cols="30" rows="10" class="form-control">{{ $torrentRequest->description }}</textarea>
                     </div>
-        
+
                     <br>
-        
+
                     <label for="anon" class="control-label">Anonymous Request?</label>
                     <div class="radio-inline">
                         <label>
@@ -128,9 +114,9 @@
                             value="0">@lang('common.no')
                         </label>
                     </div>
-        
+
                     <br>
-        
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">@lang('common.submit')</button>
                     </div>
@@ -146,6 +132,6 @@
             $('#request-form-description').wysibb({});
             emoji.textcomplete()
         })
-    
+
     </script>
 @endsection

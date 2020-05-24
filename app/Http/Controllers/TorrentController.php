@@ -403,8 +403,6 @@ class TorrentController extends Controller
         $imdb = $request->input('imdb');
         $tvdb = $request->input('tvdb');
         $tmdb = $request->input('tmdb');
-        $mal = $request->input('mal');
-        $igdb = $request->input('igdb');
         $start_year = $request->input('start_year');
         $end_year = $request->input('end_year');
         $categories = $request->input('categories');
@@ -496,14 +494,6 @@ class TorrentController extends Controller
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
                 $torrent->where('torrentsl.tmdb', '=', $tmdb);
-            }
-
-            if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrentsl.mal', '=', $mal);
-            }
-
-            if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrentsl.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -629,14 +619,6 @@ class TorrentController extends Controller
 
             if ($request->has('tmdb') && $request->input('tmdb') != null) {
                 $torrent->where('torrents.tmdb', '=', $tmdb);
-            }
-
-            if ($request->has('mal') && $request->input('mal') != null) {
-                $torrent->where('torrents.mal', '=', $mal);
-            }
-
-            if ($request->has('igdb') && $request->input('igdb') != null) {
-                $torrent->where('torrents.igdb', '=', $igdb);
             }
 
             if ($request->has('start_year') && $request->has('end_year') && $request->input('start_year') != null && $request->input('end_year') != null) {
@@ -1041,6 +1023,11 @@ class TorrentController extends Controller
         $torrent = Torrent::withAnyStatus()->findOrFail($id);
         $client = new \App\Services\MovieScrapper(config('api-keys.tmdb'), config('api-keys.tvdb'), config('api-keys.omdb'));
 
+        // Custom
+        $oldname = $torrent->name;
+        $newname = $request->input('name');
+        // End custom
+
         abort_unless($user->group->is_modo || $user->id == $torrent->user_id, 403);
         $torrent->name = $request->input('name');
         $torrent->slug = Str::slug($torrent->name);
@@ -1049,8 +1036,6 @@ class TorrentController extends Controller
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
-        $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->mediainfo = $request->input('mediainfo');
         $torrent->anon = $request->input('anonymous');
@@ -1066,8 +1051,6 @@ class TorrentController extends Controller
             'imdb'         => 'required|numeric',
             'tvdb'         => 'required|numeric',
             'tmdb'         => 'required|numeric',
-            'mal'          => 'required|numeric',
-            'igdb'         => 'required|numeric',
             'type'         => 'required',
             'anon'         => 'required',
             'stream'       => 'required',
@@ -1109,6 +1092,25 @@ class TorrentController extends Controller
             }
         }
 
+        // Custom
+        if ($request->input('notify') && $oldname != $newname &&
+        $user->group->is_modo && $user->id != $torrent->user_id) {
+            $pm = new PrivateMessage();
+            $pm->sender_id = $user->id;
+            $pm->receiver_id = $torrent->user_id;
+            $pm->subject = 'Your uploads title has been edited by staff';
+            $pm->message = sprintf('Hi,<br><br>
+                            The title of a torrent you uploaded has been edited by %s.<br>
+                            <strong>Original name:</strong><br>%s<br>
+                            <strong>New name:</strong><br>%s<br><br>
+                            You can read our naming rules <a href="/pages/10#5">here</a>.<br>
+                            You can see our upload guide <a href="/pages/15">here</a>.<br><br>
+                            <font color="red">THIS IS AN AUTOMATED SYSTEM MESSAGE!</font><br>
+                            <br>Cheers.', $user->username, $oldname, $newname);
+            $pm->save();
+        }
+        // End custom
+
         return redirect()->route('torrent', ['id' => $torrent->id])
             ->withSuccess('Successfully Edited!');
     }
@@ -1142,8 +1144,8 @@ class TorrentController extends Controller
                     $pmuser->sender_id = 1;
                     $pmuser->receiver_id = $pm->user_id;
                     $pmuser->subject = sprintf('Torrent Deleted! - %s', $torrent->name);
-                    $pmuser->message = sprintf('[b]Attention:[/b] Torrent %s has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                        [b]Removal Reason:[/b] %s
+                    $pmuser->message = sprintf('<strong>Attention:</strong><br>Torrent %s has been removed from our site.<br>Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.<br>
+                                        <strong>Removal Reason:</strong><br>%s<br>
                                         [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $torrent->name, $request->message);
                     $pmuser->save();
                 }
@@ -1180,7 +1182,7 @@ class TorrentController extends Controller
             foreach ($v->errors()->all() as $error) {
                 $errors .= $error."\n";
             }
-            \Log::notice(sprintf('Deletion of torrent failed due to: 
+            \Log::notice(sprintf('Deletion of torrent failed due to:
 
 %s', $errors));
 
@@ -1314,8 +1316,6 @@ class TorrentController extends Controller
         $torrent->imdb = $request->input('imdb');
         $torrent->tvdb = $request->input('tvdb');
         $torrent->tmdb = $request->input('tmdb');
-        $torrent->mal = $request->input('mal');
-        $torrent->igdb = $request->input('igdb');
         $torrent->type = $request->input('type');
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
@@ -1339,8 +1339,6 @@ class TorrentController extends Controller
             'imdb'        => 'required|numeric',
             'tvdb'        => 'required|numeric',
             'tmdb'        => 'required|numeric',
-            'mal'         => 'required|numeric',
-            'igdb'        => 'required|numeric',
             'type'        => 'required',
             'anon'        => 'required',
             'stream'      => 'required',

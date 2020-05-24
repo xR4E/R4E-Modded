@@ -71,7 +71,7 @@ class GiftController extends Controller
         $pm->sender_id = 1;
         $pm->receiver_id = $recipient->id;
         $pm->subject = 'You Have Received A System Generated Gift';
-        $pm->message = sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.
+        $pm->message = sprintf('We just wanted to let you know that staff member, %s, has credited your account with %s Bonus Points, %s Invites and %s Freeleech Tokens.<br>
                                 [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]', $staff->username, $seedbonus, $invites, $fl_tokens);
         $pm->save();
 

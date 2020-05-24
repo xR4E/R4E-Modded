@@ -123,10 +123,8 @@ class ModerationController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $torrent->user_id;
         $pm->subject = sprintf('Your upload, %s ,has been postponed by %s', $torrent->name, $user->username);
-        $pm->message = sprintf('Greetings, 
-
- Your upload, %s ,has been postponed. Please see below the message from the staff member. 
-
+        $pm->message = sprintf('Greetings, <br>
+ Your upload, %s ,has been postponed. Please see below the message from the staff member. <br><br>
 %s', $torrent->name, $request->input('message'));
         $pm->save();
 
@@ -160,10 +158,8 @@ class ModerationController extends Controller
         $pm->sender_id = $user->id;
         $pm->receiver_id = $torrent->user_id;
         $pm->subject = sprintf('Your upload, %s ,has been rejected by %s', $torrent->name, $user->username);
-        $pm->message = sprintf('Greetings, 
-
- Your upload %s has been rejected. Please see below the message from the staff member. 
-
+        $pm->message = sprintf('Greetings,<br>
+ Your upload %s has been rejected. Please see below the message from the staff member.<br><br>
 %s', $torrent->name, $request->input('message'));
         $pm->save();
 

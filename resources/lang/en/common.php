@@ -174,7 +174,7 @@ return [
     'select'               => 'Select',
     'sort'                 => 'Sort',
     'special'              => 'Special',
-    'sponsor'              => 'Become a Sponsor',
+    'sponsor'              => 'Support codebase development',
     'staff'                => 'Staff',
     'staff-tools'          => 'Staff Tools',
     'stats'                => 'Stats',

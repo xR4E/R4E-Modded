@@ -70,7 +70,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                 $user->group_id = $pruned_group[0];
                 $user->deleted_by = 1;
                 $user->save();
-                $user->delete();
+                //$user->delete();
             }
         }
         $this->comment('Automated Soft Delete Disabled Users Command Complete');

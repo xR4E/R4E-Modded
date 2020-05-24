@@ -71,8 +71,11 @@ class AutoPreWarning extends Command
                         $pm->sender_id = 1;
                         $pm->receiver_id = $pre->user->id;
                         $pm->subject = 'Hit and Run Warning Incoming';
-                        $pm->message = 'You have received a automated [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.config('hitrun.prewarn').sprintf(' days on Torrent %s
-                                            and have not yet met the required seedtime rules set by ', $pre->torrent->name).config('other.title').sprintf('. If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).config('hitrun.expire').' days![/b]
+                        $pm->message = 'This is a [b]PRE-WARNING PM[/b] from the system because [b]you have been disconnected for '.config('hitrun.prewarn').sprintf(' days[/b] on torrent:<br>
+                                            [b]%s[/b]<br>
+                                            and have not yet met the required seedtime rules.<br>', $pre->torrent->name).sprintf('
+                                            If you fail to seed it within %s day(s) you will receive a automated WARNING which will last ', $timeleft).config('hitrun.expire').' days!<br>
+                                            No warning will be given if you seed it to requirements starting now.<br>
                                             [color=red][b] THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
                         $pm->save();
 

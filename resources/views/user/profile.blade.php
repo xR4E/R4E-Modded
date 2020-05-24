@@ -560,7 +560,7 @@
                 </tr>
                 <tr>
                     <td> @lang('user.last-login')</td>
-                    <td>@if ($user->last_login != null){{ $user->last_login->toDayDateTimeString() }}
+                    <td>@if ($user->last_login != null){{ $user->last_login->toDateTimeString() }}
                         ({{ $user->last_login->diffForHumans() }})@else N/A @endif</td>
                 </tr>
                 <tr>

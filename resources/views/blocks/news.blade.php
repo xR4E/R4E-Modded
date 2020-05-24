@@ -37,7 +37,7 @@
 
                                 <p class="text-muted">
                                     <em>@lang('articles.published-at')
-                                        {{ $article->created_at->toDayDateTimeString() }}</em>
+                                        {{ $article->created_at->toDateTimeString() }}</em>
                                 </p>
 
                                 <p style="margin-top: 20px;">

@@ -60,7 +60,7 @@
                                                 {{ $note->message }}
                                             </td>
                                             <td>
-                                                {{ $note->created_at->toDayDateTimeString() }}
+                                                {{ $note->created_at->toDateTimeString() }}
                                                 ({{ $note->created_at->diffForHumans() }})
                                             </td>
                                             <td>

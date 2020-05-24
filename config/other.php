@@ -76,7 +76,7 @@ return [
     | Date Site Was Born
     |
     */
-    'birthdate' => 'December 30th 2017',
+    'birthdate' => '2018-02-08',
 
     /*
     |--------------------------------------------------------------------------
@@ -88,7 +88,7 @@ return [
     */
     'freeleech' => false,
 
-    'freeleech_until' => '12/23/2017 3:00 PM EST',
+    'freeleech_until' => '2020-01-01T12:00+00:00',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,7 @@ return [
     |
     */
 
-    'ratio' => 0.4,
+    'ratio' => 0.5,
 
     /*
     |--------------------------------------------------------------------------
@@ -183,7 +183,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 1
     */
-    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/1',
+    'rules_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/40',
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +191,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 2
     */
-    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/2',
+    'faq_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/5',
 
     /*
     |--------------------------------------------------------------------------
@@ -199,7 +199,7 @@ return [
     |--------------------------------------------------------------------------
     | Example: 4
     */
-    'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/4',
+    'upload-guide_url' => 'https://'.parse_url(env('APP_URL'), PHP_URL_HOST).'/pages/15',
 
     /*
     |--------------------------------------------------------------------------
@@ -209,7 +209,7 @@ return [
     | 0 = Disabled
     | If enabled, Staff members get notifications instead of posting being announced in chat.
     */
-    'staff-forum-notify' => '0',
+    'staff-forum-notify' => '1',
 
     /*
     |--------------------------------------------------------------------------
@@ -218,6 +218,6 @@ return [
     | Example: 2
     | The ID value of staff forum area. Should be the main / parent ID.
     */
-    'staff-forum-id' => '',
+    'staff-forum-id' => '3',
 
 ];

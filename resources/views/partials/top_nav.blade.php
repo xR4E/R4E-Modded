@@ -2,7 +2,7 @@
     <div class="hoe-left-header" hoe-position-type="fixed">
         <a href="{{ route('home.index') }}">
             <div class="banner">
-                <i class="fal fa-rocket" style="display: inline;"></i>
+                <i class="fas fa-flag-checkered" style="display: inline;"></i>
             </div>
         </a>
         <span class="hoe-sidebar-toggle"><a href="#"></a></span>
@@ -33,6 +33,32 @@
             <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                 <a href="{{ route('achievements.index') }}" class="icon-circle">
                     <i class="{{ config('other.font-awesome') }} fa-trophy text-gold"></i>
+                </a>
+            </li>
+
+            <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
+                <a href="{{ route('pages.show', ['id' => 35]) }}" class="dropdown-toggle icon-circle">
+                    <i class="fal fa-heart test-red" style=" color: rgba(255, 0, 0, 0.8) !important;"></i>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ route('pages.show', ['id' => 35]) }}">
+                    @php
+                    $donation_progress = (config("custom.donation-amount", '0') / config("custom.donation-goal", '1') ) * 100;
+                    $donation_progress = min(round($donation_progress, 2), 100);
+                    @endphp
+                    <div class="donation" style="white-space: nowrap;">
+                        <div class="donation-bar" role="donationbar"
+                            aria-valuenow="{{ $donation_progress }}" aria-valuemin="0"
+                            aria-valuemax="100" style="width: {{ $donation_progress }}%;">
+                                @if (config('custom.donation-goal') > config('custom.donation-amount'))
+                                    {{ round(config("custom.donation-amount", '0'), 2) }} {{ config("custom.donation-unit", 'Units') }}
+                                @else
+                                    &nbsp;&nbsp;@lang('blocks.donation-reached')&nbsp;&nbsp;
+                                @endif
+                        </div>
+                    </div>
                 </a>
             </li>
 
